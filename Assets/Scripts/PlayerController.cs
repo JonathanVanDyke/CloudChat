@@ -45,21 +45,18 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {   
             rb.AddForce(-transform.forward * thrust * Time.deltaTime);
-            Debug.Log(rb.velocity);
         };
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.forward = zeroVector;
+            //transform.forward = zeroVector;
             rb.AddForce(-transform.right * thrust * Time.deltaTime);
-            Debug.Log(rb.velocity);
         };
 
         if (Input.GetKey(KeyCode.D))
         {
-            transform.forward = zeroVector;
+            //transform.forward = zeroVector;
             rb.AddForce(transform.right * thrust * Time.deltaTime);
-            Debug.Log(rb.velocity);
         };
         #endregion
 
@@ -68,13 +65,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rb.AddForce(transform.up * thrust * boost * Time.deltaTime, 0);
-            Debug.Log(rb.velocity);
         };
 
         if (Input.GetKey(KeyCode.Mouse1))
         {
             rb.AddForce(-transform.up * thrust * boost * Time.deltaTime);
-            Debug.Log(rb.velocity);
         };
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -106,7 +101,6 @@ public class PlayerController : MonoBehaviour
         var leftSpeed = -localVelocity.x;
         var rightSpeed = localVelocity.x;
         var upSpeed = localVelocity.y;
-        Debug.Log(leftSpeed);
 
         if (forwardSpeed >= .2 & leftSpeed <= 1 & rightSpeed <= 1 & rb.position.y < 1.1)
         {
