@@ -101,8 +101,9 @@ public class PlayerController : MonoBehaviour
         var leftSpeed = -localVelocity.x;
         var rightSpeed = localVelocity.x;
         var upSpeed = localVelocity.y;
+        var isHover = animator.GetBool("Hover");
 
-        if (forwardSpeed >= .2 & leftSpeed <= 1 & rightSpeed <= 1 & rb.position.y < 1.1)
+        if (forwardSpeed >= .2 & leftSpeed <= 1 & rightSpeed <= 1 & !isHover)
         {
             animator.SetBool("Running", true);
         }
@@ -111,7 +112,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Running", false);
         }
 
-        if (leftSpeed > .1 & rb.position.y < 1.1)
+        if (leftSpeed > .5 & !isHover)
         {
             animator.SetBool("lStrafe", true);
         }
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("lStrafe", false);
         }
 
-        if (rightSpeed > .1 & rb.position.y < 1.1)
+        if (rightSpeed > .5 & !isHover)
         {
             animator.SetBool("rStrafe", true);
         }
@@ -129,7 +130,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("rStrafe", false);
         }
 
-        if (backSpeed > .1 & leftSpeed <= 1 & rightSpeed <= 1 & rb.position.y < 1.1)
+        if (backSpeed > .1 & leftSpeed <= 1 & rightSpeed <= 1 & !isHover)
         {
             animator.SetBool("Back", true);
         }
@@ -138,14 +139,40 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Back", false);
         }
 
-        if (rb.position.y > 1.1)
+        //if (rb.position.y > 1.1)
+        //{
+        //    animator.SetBool("Hover", true);
+        //}
+        //else
+        //{
+        //    animator.SetBool("Hover", false);
+        //}
+        #endregion
+    }
+
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.tag == "Ground")
         {
             animator.SetBool("Hover", true);
+
+            animator.SetBool("Running", false);
+            animator.SetBool("lStrafe", false);
+            animator.SetBool("rStrafe", false);
+            animator.SetBool("Back", false);   
         }
-        else
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
         {
             animator.SetBool("Hover", false);
         }
-        #endregion
     }
+
+
+
+
 }
